@@ -1,11 +1,16 @@
 //melvin su
-//RPGTest1
+//RPGTest
 
 #include <iostream>
 #include <random>
 #include <ctime>
+#include <iomanip> 
 
 using namespace std;
+
+//damage variance is between variance_percentage and -(variance_percentage)
+double variance_percentage = 0.25;
+uniform_real_distribution<double> unif(-variance_percentage, variance_percentage);
 
 struct character {
 private:
@@ -14,11 +19,11 @@ private:
 	double max_hp = 100.0;
 	double base_atk = 10.0;
 	double base_def = 5.0;
+
+	double mp = 50;
+	double max_mp = 50;
 public:
-	character(string name)
-	{
-		this->name = name;
-	}
+	character(string name) { this->name = name; }
 	double getCurrentHp() { return hp; }
 	double getAtk() { return base_atk; }
 	double getDef() { return base_def; }
@@ -28,12 +33,13 @@ public:
 
 double damageCal(double atk, double def)
 {
-	double variance = ((rand() % 5) / 10.0) - 0.25;
-	double mod_atk = atk + (atk * variance);
+	random_device r;
+	default_random_engine re(r());
+	double variance = unif(re) + 1.0;
+	double mod_atk = atk * variance;
 	double damage = mod_atk - def;
-	//cout << "atk:" << atk << "\tvariance:" << variance << "\tmod_atk:" << mod_atk << "\tdef:" << def  << "\tfinal damage:" << damage << endl;
+	cout << "atk:" << atk << "\tvariance:" << variance << "\tmod_atk:" << mod_atk << "\tdef:" << def  << "\tfinal damage:" << damage << endl;
 	if (damage > 0) {
-		cout << "damage:" << damage << endl;
 		return damage;
 	}
 	else { return 0; }
@@ -45,12 +51,11 @@ void combat(character p1, character p2) {
 	}
 	while (p1.getCurrentHp() > 0 && p2.getCurrentHp() > 0) {
 		//p1 attacks p2
-		cout << "currenthp:" << p2.getCurrentHp() << endl;
 		p2.setHp(p2.getCurrentHp() - damageCal(p1.getAtk(), p2.getDef()));
 		cout << p2.getName() << " current hp is " << p2.getCurrentHp() << endl;
 		if (p2.getCurrentHp() >= 0) {
 			p1.setHp(p1.getCurrentHp() - damageCal(p2.getAtk(), p1.getDef()));
-			cout << p1.getName() << " current hp is " << p1.getCurrentHp() << endl;
+			cout << p1.getName() << " current hp is " << p1.getCurrentHp() << endl << endl;
 		}
 	}
 }
