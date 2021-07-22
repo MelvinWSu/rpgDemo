@@ -6,8 +6,6 @@ Goal: Implementation of an automatic turn-based RPG mechanics including multiple
 Features:
   Character Generation: Random values of HP (health points), MP (magic points), ATK (attack), MAG(magic attack), and DEF (defense). Random amount of skills and skill slots a character may have. Randomly generated name from a list.
   
-  Equipment: TBD
-  
   
   Basic Combat: Each turn a character will randomly either attack or use an active skill. Characters alternate turns. Random chance determines which character starts. Battle ends when a character's HP reaches 0. 
   
@@ -36,8 +34,8 @@ Features:
     Rage: Force the next turn's action to be attack. Increase ATK by %75 of the base power, set DEF to 0. 
     
     
+  Equipment: TBD
   
-  
-  After combat: TBD
+  After combat events: TBD
   
   Progression: TBD
