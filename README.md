@@ -36,6 +36,6 @@ Features:
     
   Equipment: TBD
   
-  After combat events: TBD
+  Outside combat events: TBD
   
-  Progression: TBD
+  Game/ Level Progression: TBD
